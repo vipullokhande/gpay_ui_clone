@@ -32,7 +32,11 @@ class Mid extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Icon(icon, color: AppColors.blue),
-            TextWidget(text, fontColor: getForegroundColor(context)),
+            TextWidget(
+              text,
+              fontSize: 12,
+              fontColor: getForegroundColor(context),
+            ),
           ],
         ),
       ),

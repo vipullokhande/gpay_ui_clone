@@ -4,7 +4,7 @@ class TransactionModel {
   String receiverImage;
   String status;
   String statusActionSymbol;
-  String transactionDate;
+  final DateTime transactionDate;
   int amount;
   TransactionModel({
     required this.senderName,
@@ -36,7 +36,7 @@ class TransactionModel {
       status: map['status'] ?? '',
       statusActionSymbol: map['statusActionSymbol'] ?? '',
       amount: map['amount']?.toInt() ?? 0,
-      transactionDate: map['transactionDate'] ?? '',
+      transactionDate: map['transactionDate'],
     );
   }
 }

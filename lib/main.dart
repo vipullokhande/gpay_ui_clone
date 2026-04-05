@@ -25,8 +25,6 @@ class MyApp extends StatelessWidget {
       title: 'Gpay-UI',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        useMaterial3: true,
-        fontFamily: "",
         scaffoldBackgroundColor: Get.find<DarkModeController>().isDark
             ? const Color.fromARGB(115, 37, 37, 37)
             : AppColors.white,
@@ -37,7 +35,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
+  const MainScreen({super.key});
 
   @override
   State<MainScreen> createState() => _MainScreenState();

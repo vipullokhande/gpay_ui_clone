@@ -11,11 +11,11 @@ class MidBillWidget extends StatelessWidget {
   String text;
   VoidCallback onTap;
   MidBillWidget({
-    Key? key,
+    super.key,
     required this.icon,
     required this.text,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +48,7 @@ class MidBillWidget extends StatelessWidget {
                 text,
                 textAlign: TextAlign.center,
                 maxLines: 2,
+                fontSize: 12,
                 overflow: TextOverflow.ellipsis,
                 fontColor: getForegroundColor(context),
               ),

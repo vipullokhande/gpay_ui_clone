@@ -35,9 +35,7 @@ import '../../../../core/common/controllers/dark_mode_controller.dart';
 // }
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({
-    Key? key,
-  }) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -45,6 +43,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   String assets = 'assets/vip.png';
+  ExpansibleController _expansibleController = ExpansibleController();
   bool panel = true;
   final scrollController = ScrollController();
   String getInitials(String fullName) {
@@ -88,42 +87,15 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   List<Person> person = [
-    Person(
-      name: 'Akshay Kumar',
-      bg: Colors.blue,
-    ),
-    Person(
-      name: 'Katrina Kaif',
-      bg: Colors.red,
-    ),
-    Person(
-      name: 'Bill Gates',
-      bg: Colors.orange,
-    ),
-    Person(
-      name: 'Elon Musk',
-      bg: Colors.yellowAccent.shade700,
-    ),
-    Person(
-      name: 'Jeff Bezos',
-      bg: Colors.greenAccent.shade700,
-    ),
-    Person(
-      name: 'Warren Buffet',
-      bg: Colors.cyan,
-    ),
-    Person(
-      name: 'Tim Cook',
-      bg: Colors.purple,
-    ),
-    Person(
-      name: 'Mark Zuckerburg',
-      bg: Colors.blueGrey,
-    ),
-    Person(
-      name: 'Jack Maa',
-      bg: Colors.redAccent,
-    ),
+    Person(name: 'Akshay Kumar', bg: Colors.blue),
+    Person(name: 'Katrina Kaif', bg: Colors.red),
+    Person(name: 'Bill Gates', bg: Colors.orange),
+    Person(name: 'Elon Musk', bg: Colors.yellowAccent.shade700),
+    Person(name: 'Jeff Bezos', bg: Colors.greenAccent.shade700),
+    Person(name: 'Warren Buffet', bg: Colors.cyan),
+    Person(name: 'Tim Cook', bg: Colors.purple),
+    Person(name: 'Mark Zuckerburg', bg: Colors.blueGrey),
+    Person(name: 'Jack Maa', bg: Colors.redAccent),
   ];
 
   List<BusinessesModel> businesses = [
@@ -135,14 +107,8 @@ class _HomeScreenState extends State<HomeScreen> {
       businessName: 'Jio Prepaid',
       businessAsset: 'assets/jio.png',
     ),
-    BusinessesModel(
-      businessName: 'Redbus',
-      businessAsset: 'assets/redbus.png',
-    ),
-    BusinessesModel(
-      businessName: 'Money view',
-      businessAsset: 'assets/mv.png',
-    ),
+    BusinessesModel(businessName: 'Redbus', businessAsset: 'assets/redbus.png'),
+    BusinessesModel(businessName: 'Money view', businessAsset: 'assets/mv.png'),
     BusinessesModel(
       businessName: 'Nearby store',
       businessAsset:
@@ -153,10 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
       businessAsset:
           'https://play-lh.googleusercontent.com/mlu3_G6TXUBcJCMeOpYu5RJaZIEOjZkykAhE0I8YcZBBsJ717ni02wy0dP4Ssh7gih5K',
     ),
-    BusinessesModel(
-      businessName: '5paisa',
-      businessAsset: 'assets/5paisa.png',
-    ),
+    BusinessesModel(businessName: '5paisa', businessAsset: 'assets/5paisa.png'),
     BusinessesModel(
       businessName: 'Nearby store',
       businessAsset:
@@ -167,10 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
       businessAsset:
           'https://play-lh.googleusercontent.com/mlu3_G6TXUBcJCMeOpYu5RJaZIEOjZkykAhE0I8YcZBBsJ717ni02wy0dP4Ssh7gih5K',
     ),
-    BusinessesModel(
-      businessName: '5paisa',
-      businessAsset: 'assets/5paisa.png',
-    ),
+    BusinessesModel(businessName: '5paisa', businessAsset: 'assets/5paisa.png'),
   ];
   // List<String> logos = [
   //   'assets/maha.png',
@@ -211,8 +171,9 @@ class _HomeScreenState extends State<HomeScreen> {
     String upiID = 'xnmae1@okhdfcbank';
     Color expTileColor = getForegroundColor(context);
     return Scaffold(
-      backgroundColor:
-          isDark ? const Color.fromARGB(255, 24, 24, 24) : AppColors.white,
+      backgroundColor: isDark
+          ? const Color.fromARGB(255, 24, 24, 24)
+          : AppColors.white,
       // appBar: AppBar(
       //   elevation: 0,
       //   backgroundColor:
@@ -338,9 +299,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 : size.height * 0.28,
             width: size.width,
             alignment: Alignment.topCenter,
-            margin: const EdgeInsets.only(
-              bottom: 8,
-            ),
+            margin: const EdgeInsets.only(bottom: 8),
             decoration:
                 // searchPersonList.isNotEmpty || searchBusinessList.isNotEmpty
                 //     ? BoxDecoration(
@@ -358,17 +317,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 //       )
                 //     :
                 BoxDecoration(
-              color: isDark ? AppColors.black : Colors.white38,
-              image: const DecorationImage(
-                opacity: 0.9,
-                image: AssetImage(
-                  'assets/event.png',
-                  // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVOIYQrX9h0FA7v7Kl1F-7UujQcl-ZElDoNg&usqp=CAU",
+                  color: isDark ? AppColors.black : Colors.white38,
+                  image: const DecorationImage(
+                    opacity: 0.9,
+                    image: AssetImage(
+                      'assets/event.png',
+                      // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVOIYQrX9h0FA7v7Kl1F-7UujQcl-ZElDoNg&usqp=CAU",
+                    ),
+                    fit: BoxFit.cover,
+                    isAntiAlias: true,
+                  ),
                 ),
-                fit: BoxFit.cover,
-                isAntiAlias: true,
-              ),
-            ),
             child: Stack(
               children: [
                 searchPersonList.isNotEmpty || searchBusinessList.isNotEmpty
@@ -383,17 +342,16 @@ class _HomeScreenState extends State<HomeScreen> {
                       )
                     : const SizedBox(),
                 ListTile(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 14)
-                      .copyWith(left: 25),
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                  ).copyWith(left: 25),
                   titleAlignment: ListTileTitleAlignment.center,
                   title: SizedBox(
                     height: 50,
                     child: TextFormField(
                       controller: searchController,
                       textAlign: TextAlign.start,
-                      style: TextStyle(
-                        color: getForegroundColor(context),
-                      ),
+                      style: TextStyle(color: getForegroundColor(context)),
                       onChanged: search,
                       decoration: InputDecoration(
                         fillColor: isDark
@@ -430,30 +388,30 @@ class _HomeScreenState extends State<HomeScreen> {
                             //     ? const SizedBox()
                             //     :
                             IconButton(
-                          padding: EdgeInsets.zero,
-                          onPressed: () {
-                            if (searchPersonList.isNotEmpty ||
-                                searchBusinessList.isNotEmpty ||
-                                searchController.text.isNotEmpty) {
-                              clearAll();
-                              setState(() {
-                                searchController.text = '';
-                              });
-                              if (FocusScope.of(context).hasFocus) {
-                                FocusScope.of(context).unfocus();
-                              }
-                            } else {
-                              if (FocusScope.of(context).hasFocus) {
-                                FocusScope.of(context).unfocus();
-                              }
-                              return;
-                            }
-                          },
-                          icon: searchController.text.isEmpty
-                              ? const SizedBox()
-                              : const Icon(Icons.clear),
-                          color: getForegroundColor(context),
-                        ),
+                              padding: EdgeInsets.zero,
+                              onPressed: () {
+                                if (searchPersonList.isNotEmpty ||
+                                    searchBusinessList.isNotEmpty ||
+                                    searchController.text.isNotEmpty) {
+                                  clearAll();
+                                  setState(() {
+                                    searchController.text = '';
+                                  });
+                                  if (FocusScope.of(context).hasFocus) {
+                                    FocusScope.of(context).unfocus();
+                                  }
+                                } else {
+                                  if (FocusScope.of(context).hasFocus) {
+                                    FocusScope.of(context).unfocus();
+                                  }
+                                  return;
+                                }
+                              },
+                              icon: searchController.text.isEmpty
+                                  ? const SizedBox()
+                                  : const Icon(Icons.clear),
+                              color: getForegroundColor(context),
+                            ),
 
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
@@ -518,9 +476,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => ProfileScreen(
-                            asset: assets,
-                          ),
+                          builder: (context) => ProfileScreen(asset: assets),
                         ),
                       );
                     },
@@ -539,11 +495,11 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           searchPersonList.isNotEmpty || searchBusinessList.isNotEmpty
               ?
-              // Flexible(child: ListView.builder(itemBuilder: (context, index) {
-              //     return SearchResultWidget(
-              //         name: searchList[index].name, image: searchList[index].asset);
-              //   }))
-              Wrap(
+                // Flexible(child: ListView.builder(itemBuilder: (context, index) {
+                //     return SearchResultWidget(
+                //         name: searchList[index].name, image: searchList[index].asset);
+                //   }))
+                Wrap(
                   children: [
                     for (int i = 0; i < searchPersonList.length; i++)
                       PeopleWidget(
@@ -593,9 +549,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     // ),
                     Container(
                       height: size.height * 0.25,
-                      padding: const EdgeInsets.only(
-                        top: 10,
-                      ),
+                      padding: const EdgeInsets.only(top: 10),
                       width: size.width,
                       // clipBehavior: Clip.antiAlias,
                       // decoration: BoxDecoration(
@@ -670,7 +624,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           TextButton.icon(
                             style: TextButton.styleFrom(
                               padding: const EdgeInsets.symmetric(
-                                  vertical: 3, horizontal: 10),
+                                vertical: 3,
+                                horizontal: 10,
+                              ),
                               backgroundColor: isDark
                                   ? const Color.fromARGB(255, 36, 36, 36)
                                   : const Color.fromARGB(255, 235, 235, 235),
@@ -695,15 +651,18 @@ class _HomeScreenState extends State<HomeScreen> {
                           TextButton.icon(
                             style: TextButton.styleFrom(
                               padding: const EdgeInsets.symmetric(
-                                  vertical: 3, horizontal: 10),
+                                vertical: 3,
+                                horizontal: 10,
+                              ),
                               backgroundColor: isDark
                                   ? const Color.fromARGB(255, 59, 59, 59)
                                   : AppColors.white,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
                                 side: BorderSide(
-                                  color:
-                                      isDark ? Colors.white38 : AppColors.grey,
+                                  color: isDark
+                                      ? Colors.white38
+                                      : AppColors.grey,
                                 ),
                               ),
                               // fixedSize: Size(size.width * 0.45, 30),
@@ -747,8 +706,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             leading: Image.asset('assets/bg.png'),
                             title: TextWidget(
                               'People you\'ve recently paid will show up here ',
-                              fontColor:
-                                  isDark ? AppColors.white : Colors.black87,
+                              fontColor: isDark
+                                  ? AppColors.white
+                                  : Colors.black87,
                               fontWeight: FontWeight.bold,
                             ),
                           )
@@ -760,22 +720,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                     GestureDetector(
                                       onLongPress: () {
                                         showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              return Dialog(
-                                                alignment: Alignment.center,
-                                                child: TextButton(
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      person.removeAt(i);
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                    });
-                                                  },
-                                                  child: TextWidget('remove'),
-                                                ),
-                                              );
-                                            });
+                                          context: context,
+                                          builder: (context) {
+                                            return Dialog(
+                                              alignment: Alignment.center,
+                                              child: TextButton(
+                                                onPressed: () {
+                                                  setState(() {
+                                                    person.removeAt(i);
+                                                    Navigator.of(context).pop();
+                                                  });
+                                                },
+                                                child: TextWidget('remove'),
+                                              ),
+                                            );
+                                          },
+                                        );
                                       },
                                       child: PeopleWidget(
                                         name: person[i].name,
@@ -796,16 +756,21 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           TextWidget(
                             'Businessess',
-                            fontColor:
-                                isDark ? AppColors.white : AppColors.black,
+                            fontColor: isDark
+                                ? AppColors.white
+                                : AppColors.black,
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
                           ),
                           const Spacer(),
                           TextButton.icon(
                             style: TextButton.styleFrom(
-                              backgroundColor:
-                                  const Color.fromARGB(255, 170, 213, 249),
+                              backgroundColor: const Color.fromARGB(
+                                255,
+                                170,
+                                213,
+                                249,
+                              ),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
                               ),
@@ -858,9 +823,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Ink(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 15,
@@ -913,8 +876,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: TextWidget(
                                 'Pay',
                                 fontSize: 16,
-                                fontColor:
-                                    const Color.fromRGBO(112, 158, 239, 1),
+                                fontColor: const Color.fromRGBO(
+                                  112,
+                                  158,
+                                  239,
+                                  1,
+                                ),
                               ),
                             ),
                           ],
@@ -984,9 +951,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         fontColor: getForegroundColor(context),
                       ),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                          24,
-                        ),
+                        borderRadius: BorderRadius.circular(24),
                         side: BorderSide(
                           width: 1,
                           color: Colors.blueAccent.shade200,
@@ -1006,6 +971,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: ExpansionTile(
+                        controller: _expansibleController,
                         collapsedBackgroundColor: isDark
                             ? const Color.fromARGB(255, 48, 47, 47)
                             : const Color.fromARGB(255, 235, 234, 234),
@@ -1038,22 +1004,34 @@ class _HomeScreenState extends State<HomeScreen> {
                         // collapsedBackgroundColor: isDark
                         //     ? const Color.fromARGB(255, 48, 47, 47)
                         //     : const Color.fromARGB(255, 235, 234, 234),
-                        onExpansionChanged: (value) => setState(() {
-                          panel = !panel;
-                        }),
-                        trailing: Icon(
-                          size: 50,
-                          !panel
-                              ? Icons.arrow_drop_up_rounded
-                              : Icons.arrow_drop_down_rounded,
-                          color: isDark ? Colors.white : Colors.black,
+                        onExpansionChanged: (value) => setState(() {}),
+                        enabled: false,
+                        trailing: GestureDetector(
+                          onTap: () {
+                            if (_expansibleController.isExpanded) {
+                              _expansibleController.collapse();
+                            } else {
+                              _expansibleController.expand();
+                            }
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(right: 15),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(width: 1, color: Colors.grey),
+                            ),
+                            child: Icon(
+                              _expansibleController.isExpanded
+                                  ? Icons.keyboard_control_key_sharp
+                                  : Icons.keyboard_arrow_down_rounded,
+                              color: Colors.grey,
+                              size: 40,
+                            ),
+                          ),
                         ),
                         title: Row(
                           children: [
-                            DropWidget(
-                              image: 'assets/jio.png',
-                              text: 'Jio',
-                            ),
+                            DropWidget(image: 'assets/jio.png', text: 'Jio'),
                             DropWidget(
                               image: 'assets/redbus.png',
                               text: 'Redbus',
@@ -1109,10 +1087,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                     DropWidget(
                                       image: 'assets/redbus.png',
                                       text: 'Redbus',
-                                    )
+                                    ),
                                   ],
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ],
@@ -1120,7 +1098,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 12),
+                        vertical: 10,
+                        horizontal: 12,
+                      ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -1130,14 +1110,16 @@ class _HomeScreenState extends State<HomeScreen> {
                               vertical: 5,
                             ),
                             'Offers & rewards',
-                            fontColor:
-                                isDark ? AppColors.white : AppColors.black,
+                            fontColor: isDark
+                                ? AppColors.white
+                                : AppColors.black,
                             fontSize: 22,
                             fontWeight: FontWeight.w400,
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 3)
-                                .copyWith(top: 7),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 3,
+                            ).copyWith(top: 7),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
@@ -1199,9 +1181,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 icon: Icons.local_activity,
                                 onTap: () {},
                               ),
-                              const SizedBox(
-                                width: 10,
-                              ),
+                              const SizedBox(width: 10),
                               GChip(
                                 text: 'Gold',
                                 icon: Icons.flourescent_rounded,
@@ -1216,11 +1196,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             issubtitle: Align(
                               alignment: Alignment.bottomCenter,
                               child: Container(
-                                padding: const EdgeInsets.all(3).copyWith(
-                                  left: 10,
-                                  right: 10,
-                                  top: 0,
-                                ),
+                                padding: const EdgeInsets.all(
+                                  3,
+                                ).copyWith(left: 10, right: 10, top: 0),
                                 decoration: BoxDecoration(
                                   color: const Color.fromRGBO(28, 160, 68, 0.6),
                                   borderRadius: BorderRadius.circular(16),
@@ -1228,8 +1206,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: TextWidget(
                                   '₹0 joining fee',
                                   // color: Color.fromRGBO(28, 160, 68, 1),
-                                  fontColor:
-                                      const Color.fromRGBO(252, 252, 252, 1),
+                                  fontColor: const Color.fromRGBO(
+                                    252,
+                                    252,
+                                    252,
+                                    1,
+                                  ),
                                 ),
                               ),
                             ),
@@ -1237,8 +1219,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               onPressed: () {},
                               child: TextWidget(
                                 'Apply now',
-                                fontColor:
-                                    const Color.fromRGBO(161, 187, 230, 1),
+                                fontColor: const Color.fromRGBO(
+                                  161,
+                                  187,
+                                  230,
+                                  1,
+                                ),
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
                               ),

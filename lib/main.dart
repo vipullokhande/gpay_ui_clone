@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
       title: 'Gpay-UI',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        fontFamily: "Roboto",
         scaffoldBackgroundColor: Get.find<DarkModeController>().isDark
             ? const Color.fromARGB(115, 37, 37, 37)
             : AppColors.white,

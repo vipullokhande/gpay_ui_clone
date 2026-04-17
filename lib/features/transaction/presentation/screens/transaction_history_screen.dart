@@ -3,19 +3,19 @@ import 'package:gpay_ui_clone_clone/core/common/controllers/dark_mode_controller
 import 'package:gpay_ui_clone_clone/core/common/utils/app_colors.dart';
 import 'package:gpay_ui_clone_clone/core/common/utils/color_util.dart';
 import 'package:gpay_ui_clone_clone/core/common/utils/nav_util.dart';
+import 'package:gpay_ui_clone_clone/core/common/widgets/clear_widget.dart';
 import 'package:gpay_ui_clone_clone/core/common/widgets/text_widget.dart';
 import 'package:gpay_ui_clone_clone/core/common/widgets/vertical_space.dart';
 import 'package:gpay_ui_clone_clone/features/billings/data/models/transaction_model.dart';
-import 'package:gpay_ui_clone_clone/core/common/widgets/clear_widget.dart';
-import 'package:gpay_ui_clone_clone/widgets/custom_chip_widget.dart';
 import 'package:gpay_ui_clone_clone/widgets/payment_type_widget.dart';
 import 'package:provider/provider.dart';
+
 import '../../../../widgets/payment_method_widget.dart';
 import '../../../../widgets/status_widget.dart';
 
 // ignore: must_be_immutable
 class TransactionHistoryScreen extends StatefulWidget {
-  const TransactionHistoryScreen({Key? key}) : super(key: key);
+  const TransactionHistoryScreen({super.key});
 
   @override
   State<TransactionHistoryScreen> createState() =>
@@ -37,6 +37,23 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
     'November',
     'December',
   ];
+  bool latestFirst = true;
+  convertDataToMonthWise() {
+    yearMonthWise.clear();
+    transactions.sort(
+      (a, b) => latestFirst
+          ? b.transactionDate.compareTo(a.transactionDate)
+          : a.transactionDate.compareTo(b.transactionDate),
+    );
+    for (var txn in transactions) {
+      int year = txn.transactionDate.year;
+      String month = getMonthName(txn.transactionDate.month);
+      yearMonthWise.putIfAbsent(year, () => {});
+      yearMonthWise[year]!.putIfAbsent(month, () => []);
+      yearMonthWise[year]![month]!.add(txn);
+    }
+  }
+
   List monthsCheckIndexes = [];
   List<TransactionModel> filteredtransactions = [];
   bool filter = false;
@@ -49,7 +66,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
       status: "Added",
       statusActionSymbol: "+",
       amount: 20,
-      transactionDate: "2023-01-23",
+      transactionDate: DateTime(2023, 02, 01, 12, 01, 20),
     ),
     TransactionModel(
       senderName: "User X",
@@ -58,7 +75,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
       status: "Failed",
       statusActionSymbol: "!",
       amount: 10,
-      transactionDate: "2023-01-01",
+      transactionDate: DateTime(2023, 02, 02, 12, 02, 20),
     ),
     TransactionModel(
       senderName: "User X",
@@ -67,7 +84,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
       status: "Completed",
       statusActionSymbol: "",
       amount: 70,
-      transactionDate: "2023-11-09",
+      transactionDate: DateTime(2023, 02, 03, 13, 01, 20),
     ),
     TransactionModel(
       senderName: "User X",
@@ -76,7 +93,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
       status: "Added",
       statusActionSymbol: "+",
       amount: 80,
-      transactionDate: "2023-08-12",
+      transactionDate: DateTime(2023, 03, 01, 14, 01, 20),
     ),
     TransactionModel(
       senderName: "User X",
@@ -85,7 +102,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
       status: "Failed",
       statusActionSymbol: "!",
       amount: 40,
-      transactionDate: "2023-01-23",
+      transactionDate: DateTime(2023, 03, 03, 15, 01, 20),
     ),
     TransactionModel(
       senderName: "User X",
@@ -94,7 +111,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
       status: "Completed",
       statusActionSymbol: "",
       amount: 120,
-      transactionDate: "2023-01-01",
+      transactionDate: DateTime(2023, 03, 05, 10, 01, 20),
     ),
     TransactionModel(
       senderName: "User X",
@@ -103,7 +120,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
       status: "Added",
       statusActionSymbol: "+",
       amount: 80,
-      transactionDate: "2023-11-09",
+      transactionDate: DateTime(2023, 04, 01, 12, 01, 20),
     ),
     TransactionModel(
       senderName: "User X",
@@ -112,7 +129,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
       status: "Failed",
       statusActionSymbol: "!",
       amount: 40,
-      transactionDate: "2023-08-12",
+      transactionDate: DateTime(2023, 04, 03, 12, 21, 20),
     ),
     TransactionModel(
       senderName: "User X",
@@ -121,7 +138,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
       status: "Completed",
       statusActionSymbol: "",
       amount: 120,
-      transactionDate: "2023-01-23",
+      transactionDate: DateTime(2023, 05, 04, 12, 01, 20),
     ),
     TransactionModel(
       senderName: "User X",
@@ -130,7 +147,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
       status: "Added",
       statusActionSymbol: "+",
       amount: 20,
-      transactionDate: "2023-01-01",
+      transactionDate: DateTime(2023, 06, 01, 12, 01, 20),
     ),
     TransactionModel(
       senderName: "User X",
@@ -139,7 +156,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
       status: "Failed",
       statusActionSymbol: "!",
       amount: 10,
-      transactionDate: "2023-11-09",
+      transactionDate: DateTime(2023, 06, 10, 12, 19, 20),
     ),
     TransactionModel(
       senderName: "User X",
@@ -148,7 +165,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
       status: "Failed",
       statusActionSymbol: "!",
       amount: 70,
-      transactionDate: "2023-08-12",
+      transactionDate: DateTime(2023, 07, 1, 12, 01, 20),
     ),
   ];
   getMonthName(int idx) => monthNames[idx - 1];
@@ -175,34 +192,37 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
   ];
   List<String> datesFilter = ["This month", "Last 30 days", "Last 90 days"];
   List<bool> transactionHistoryChipTitlesSelected = [];
-
+  Map<int, Map<String, List<TransactionModel>>> yearMonthWise = {};
+  final TextEditingController searchController = TextEditingController();
   @override
   void initState() {
     super.initState();
-    transactionHistoryChipTitlesSelectedM();
-    var toSort = [];
-    for (int i = 0; i < transactions.length; i++) {
-      toSort.add([
-        int.parse(transactions[i].transactionDate.split("-").first),
-        int.parse(transactions[i].transactionDate.split("-")[1]),
-        int.parse(transactions[i].transactionDate.split("-").last),
-      ]);
-    }
-    toSort.sort((a, b) => a[1].compareTo(b[1]));
-    for (var i = 0; i < transactions.length; i++) {
-      transactions[i].transactionDate = "";
-    }
-    for (var i = 0; i < toSort.length; i++) {
-      toSort[i] =
-          "${toSort[i].first.toString()}-${toSort[i][1].toString()}-${toSort[i].last.toString()}";
-      transactions[i].transactionDate = toSort[i];
-    }
+    convertDataToMonthWise();
   }
 
   void transactionHistoryChipTitlesSelectedM() {
     for (var i = 0; i < transactionHistoryChipTitles.length; i++) {
       transactionHistoryChipTitlesSelected.add(false);
     }
+  }
+
+  double getMonthlyNetTotal(int year, String month) {
+    if ((!yearMonthWise.containsKey(year)) ||
+        (!yearMonthWise[year]!.containsKey(month))) {
+      return 0;
+    }
+
+    double total = 0;
+
+    for (var txn in yearMonthWise[year]![month]!) {
+      if (txn.status == "Added") {
+        total += txn.amount;
+      } else if (txn.status == "Completed") {
+        total -= txn.amount;
+      }
+    }
+
+    return total;
   }
 
   onChipTapped(String title) async {
@@ -408,12 +428,6 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
   @override
   Widget build(BuildContext context) {
     bool isDark = context.watch<DarkModeController>().isDark;
-    final searchController = TextEditingController();
-    if (filteredtransactions.isNotEmpty) {
-      filter = true;
-    } else {
-      filter = false;
-    }
 
     return Scaffold(
       backgroundColor: isDark
@@ -421,7 +435,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
           : AppColors.white,
       body: Column(
         children: [
-          VerticalSpace(20),
+          VerticalSpace(MediaQuery.of(context).size.height * 0.035),
           SizedBox(
             height: 60,
             width: MediaQuery.of(context).size.width * 0.94,
@@ -432,37 +446,6 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
               ),
               title: TextFormField(
                 controller: searchController,
-                // onTap: () {
-                //   setState(() {
-                //     isSearch = true;
-                //   });
-                // },
-                onEditingComplete: () {
-                  setState(() {
-                    // if (searchController.text.isEmpty) {
-                    //   setState(() {
-                    //     isSearch = false;
-                    //   });
-                    // }
-                    for (int i = 0; i < transactions.length; i++) {
-                      if (searchResTitles.isEmpty) {
-                        if (transactions[i].receiverName.toLowerCase().contains(
-                          searchController.text.toLowerCase(),
-                        )) {
-                          searchResTitles.add(transactions[i].receiverName);
-                          searchResAssets.add(transactions[i].receiverImage);
-                          searchResSubtitles.add(
-                            transactions[i].transactionDate,
-                          );
-                          searchResAmounts.add(
-                            transactions[i].amount.toString(),
-                          );
-                          isSearch = true;
-                        }
-                      }
-                    }
-                  });
-                },
                 textAlign: TextAlign.start,
                 style: TextStyle(color: getForegroundColor(context)),
                 decoration: InputDecoration(
@@ -526,393 +509,260 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
               ),
             ),
           ),
-          VerticalSpace(
-            80,
-            child: Row(
-              children: [
-                IconButton(
-                  onPressed: () => showModalBottomSheet(
-                    backgroundColor: Colors.white,
-                    context: context,
-                    builder: (context) => Container(
-                      color: Colors.white,
-                      child: SingleChildScrollView(
-                        controller: allFilterScrollController,
-                        child: Column(
+          // VerticalSpace(
+          //   80,
+          //   child: Row(
+          //     children: [
+          //       IconButton(
+          //         onPressed: () => showModalBottomSheet(
+          //           backgroundColor: Colors.white,
+          //           context: context,
+          //           builder: (context) => Container(
+          //             color: Colors.white,
+          //             child: SingleChildScrollView(
+          //               controller: allFilterScrollController,
+          //               child: Column(
+          //                 children: [
+          //                   Padding(
+          //                     padding: const EdgeInsets.symmetric(
+          //                       horizontal: 15,
+          //                     ).copyWith(top: 20),
+          //                     child: Row(
+          //                       children: [
+          //                         TextWidget('Filters', fontSize: 18),
+          //                         const Spacer(),
+          //                         IconButton(
+          //                           onPressed: () => NavUtil.pop(context),
+          //                           icon: const Icon(Icons.close),
+          //                         ),
+          //                       ],
+          //                     ),
+          //                   ),
+          //                   Column(
+          //                     crossAxisAlignment: CrossAxisAlignment.start,
+          //                     children: [
+          //                       TextWidget(
+          //                         padding: const EdgeInsets.only(
+          //                           left: 15,
+          //                           bottom: 20,
+          //                           right: 15,
+          //                           top: 15,
+          //                         ),
+          //                         'Status',
+          //                         fontSize: 20,
+          //                       ),
+          //                       Wrap(
+          //                         children: [
+          //                           PaymentTypeWidget(
+          //                             icon: Icons.credit_card,
+          //                             title: "Cashback",
+          //                           ),
+          //                           PaymentTypeWidget(
+          //                             icon: Icons.credit_card,
+          //                             title: "Money Received",
+          //                           ),
+          //                           PaymentTypeWidget(
+          //                             icon: Icons.person_2_outlined,
+          //                             title: "Self transfer",
+          //                           ),
+          //                         ],
+          //                       ),
+          //                       TextWidget(
+          //                         padding: const EdgeInsets.only(
+          //                           left: 15,
+          //                           bottom: 20,
+          //                           top: 10,
+          //                         ),
+          //                         'Payment method',
+          //                         fontSize: 20,
+          //                       ),
+          //                       Wrap(
+          //                         children: [
+          //                           PaymentMethodWidget(
+          //                             title: 'Bank of Maharastra',
+          //                             image: 'assets/bom.png',
+          //                             onTap: () {},
+          //                           ),
+          //                           PaymentMethodWidget(
+          //                             title: 'UPI Lite',
+          //                             image: 'assets/upi.png',
+          //                             onTap: () {},
+          //                           ),
+          //                         ],
+          //                       ),
+          //                       TextWidget(
+          //                         padding: const EdgeInsets.only(
+          //                           left: 15,
+          //                           bottom: 20,
+          //                           top: 15,
+          //                         ),
+          //                         'Amount',
+          //                         fontSize: 20,
+          //                       ),
+          //                       ListView.builder(
+          //                         controller: allFilterScrollController,
+          //                         itemCount: amounta.length,
+          //                         shrinkWrap: true,
+          //                         itemBuilder: (context, index) => ListTile(
+          //                           contentPadding: const EdgeInsets.symmetric(
+          //                             horizontal: 10,
+          //                           ),
+          //                           title: TextWidget(amounta[index]),
+          //                           trailing: Checkbox(
+          //                             value: false,
+          //                             onChanged: (v) {},
+          //                           ),
+          //                         ),
+          //                       ),
+          //                       Padding(
+          //                         padding: const EdgeInsets.only(
+          //                           right: 10,
+          //                           bottom: 20,
+          //                         ),
+          //                         child: ClearWidget(
+          //                           onTap1: () {},
+          //                           onTap2: () {},
+          //                         ),
+          //                       ),
+          //                     ],
+          //                   ),
+          //                 ],
+          //               ),
+          //             ),
+          //           ),
+          //         ),
+          //         icon: const Icon(Icons.filter_alt_outlined),
+          //       ),
+          //       Expanded(
+          //         child: ListView.builder(
+          //           itemCount: transactionHistoryChipTitles.length,
+          //           shrinkWrap: true,
+          //           controller: allFilterScrollController,
+          //           scrollDirection: Axis.horizontal,
+          //           itemBuilder: (context, index) {
+          //             return CustomChipWidget(
+          //               title: transactionHistoryChipTitles[index],
+          //               isSelected: transactionHistoryChipTitlesSelected[index],
+          //               onTap: () =>
+          //                   onChipTapped(transactionHistoryChipTitles[index]),
+          //             );
+          //           },
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          Expanded(
+            child: ListView(
+              children: (() {
+                final sortedYears = yearMonthWise.keys.toList()
+                  ..sort(
+                    (a, b) => latestFirst ? b.compareTo(a) : a.compareTo(b),
+                  );
+
+                return sortedYears.map((year) {
+                  final monthsMap = yearMonthWise[year]!;
+
+                  final sortedMonths = monthsMap.keys.toList()
+                    ..sort((a, b) {
+                      int aIndex = monthNames.indexOf(a);
+                      int bIndex = monthNames.indexOf(b);
+                      return latestFirst
+                          ? bIndex.compareTo(aIndex)
+                          : aIndex.compareTo(bIndex);
+                    });
+
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ...sortedMonths.map((month) {
+                        final txns = monthsMap[month]!;
+                        final monthTotal = getMonthlyNetTotal(
+                          year,
+                          month,
+                        ).toInt();
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Padding(
+                            Container(
+                              width: double.maxFinite,
+                              color: const Color.fromARGB(255, 235, 237, 238),
                               padding: const EdgeInsets.symmetric(
-                                horizontal: 15,
-                              ).copyWith(top: 20),
-                              child: Row(
-                                children: [
-                                  TextWidget('Filters', fontSize: 18),
-                                  const Spacer(),
-                                  IconButton(
-                                    onPressed: () => NavUtil.pop(context),
-                                    icon: const Icon(Icons.close),
-                                  ),
-                                ],
+                                horizontal: 16,
+                                vertical: 10,
                               ),
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                TextWidget(
-                                  padding: const EdgeInsets.only(
-                                    left: 15,
-                                    bottom: 20,
-                                    right: 15,
-                                    top: 15,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TextWidget(
+                                    year.toString(),
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
                                   ),
-                                  'Status',
-                                  fontSize: 20,
-                                ),
-                                Wrap(
-                                  children: [
-                                    PaymentTypeWidget(
-                                      icon: Icons.credit_card,
-                                      title: "Cashback",
-                                    ),
-                                    PaymentTypeWidget(
-                                      icon: Icons.credit_card,
-                                      title: "Money Received",
-                                    ),
-                                    PaymentTypeWidget(
-                                      icon: Icons.person_2_outlined,
-                                      title: "Self transfer",
-                                    ),
-                                  ],
-                                ),
-                                TextWidget(
-                                  padding: const EdgeInsets.only(
-                                    left: 15,
-                                    bottom: 20,
-                                    top: 10,
-                                  ),
-                                  'Payment method',
-                                  fontSize: 20,
-                                ),
-                                Wrap(
-                                  children: [
-                                    PaymentMethodWidget(
-                                      title: 'Bank of Maharastra',
-                                      image: 'assets/bom.png',
-                                      onTap: () {},
-                                    ),
-                                    PaymentMethodWidget(
-                                      title: 'UPI Lite',
-                                      image: 'assets/upi.png',
-                                      onTap: () {},
-                                    ),
-                                  ],
-                                ),
-                                TextWidget(
-                                  padding: const EdgeInsets.only(
-                                    left: 15,
-                                    bottom: 20,
-                                    top: 15,
-                                  ),
-                                  'Amount',
-                                  fontSize: 20,
-                                ),
-                                ListView.builder(
-                                  controller: allFilterScrollController,
-                                  itemCount: amounta.length,
-                                  shrinkWrap: true,
-                                  itemBuilder: (context, index) => ListTile(
-                                    contentPadding: const EdgeInsets.symmetric(
-                                      horizontal: 10,
-                                    ),
-                                    title: TextWidget(amounta[index]),
-                                    trailing: Checkbox(
-                                      value: false,
-                                      onChanged: (v) {},
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                    right: 10,
-                                    bottom: 20,
-                                  ),
-                                  child: ClearWidget(
-                                    onTap1: () {},
-                                    onTap2: () {},
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  icon: const Icon(Icons.filter_alt_outlined),
-                ),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: transactionHistoryChipTitles.length,
-                    shrinkWrap: true,
-                    controller: allFilterScrollController,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return CustomChipWidget(
-                        title: transactionHistoryChipTitles[index],
-                        isSelected: transactionHistoryChipTitlesSelected[index],
-                        onTap: () =>
-                            onChipTapped(transactionHistoryChipTitles[index]),
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
-          VerticalSpace(10),
-          isSearch
-              ? Expanded(
-                  child: ListView.builder(
-                    padding: EdgeInsets.zero,
-                    itemCount: searchResTitles.length,
-                    controller: allFilterScrollController,
-                    scrollDirection: Axis.vertical,
-                    itemBuilder: (context, index) {
-                      final asset = searchResAssets[index];
-                      final title = searchResTitles[index];
-                      final subtitle = searchResSubtitles[index];
-                      final amount = searchResAmounts[index];
-                      return ListTile(
-                        onTap: () {},
-                        leading: ClipOval(
-                          child: Image.asset(
-                            asset,
-                            width: 50,
-                            height: 50,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        title: TextWidget(
-                          title,
-                          fontColor: getForegroundColor(context),
-                          fontWeight: FontWeight.w500,
-                        ),
-                        subtitle: TextWidget(
-                          subtitle,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          fontColor: isDark
-                              ? const Color.fromARGB(255, 198, 196, 196)
-                              : AppColors.black,
-                        ),
-                        trailing: TextWidget(
-                          amount,
-                          fontColor: getForegroundColor(context),
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                        ),
-                      );
-                    },
-                  ),
-                )
-              : Expanded(
-                  child: ListView.builder(
-                    padding: EdgeInsets.zero,
-                    itemCount: filteredtransactions.isNotEmpty
-                        ? filteredtransactions.length
-                        : transactions.length,
-                    controller: allFilterScrollController,
-                    scrollDirection: Axis.vertical,
-                    itemBuilder: (context, index) {
-                      int totalAmount = 0;
-                      final asset = filter
-                          ? filteredtransactions[index].receiverImage
-                          : transactions[index].receiverImage;
-                      final title = filter
-                          ? filteredtransactions[index].receiverName
-                          : transactions[index].receiverName;
-                      final subtitle = filter
-                          ? filteredtransactions[index].transactionDate
-                          : transactions[index].transactionDate;
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          index == 0
-                              ? Container(
-                                  padding: const EdgeInsets.only(
-                                    top: 10,
-                                    left: 10,
-                                  ),
-                                  height: 70,
-                                  width: double.maxFinite,
-                                  color: isDark
-                                      ? const Color.fromARGB(255, 36, 36, 36)
-                                      : const Color.fromARGB(
-                                          255,
-                                          235,
-                                          235,
-                                          235,
-                                        ),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                  Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       TextWidget(
-                                        getMonthName(
-                                          int.parse(subtitle.split('-')[1]),
-                                        ),
-                                        fontSize: 24,
-                                        // fontFamily: "Roboto",
-                                        fontWeight: FontWeight.w700,
-                                        fontColor: getForegroundColor(context),
+                                        month,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                       TextWidget(
-                                        "$totalAmount  ",
-                                        fontSize: 24,
-                                        fontWeight: FontWeight.w700,
-                                        fontColor: getForegroundColor(context),
+                                        monthTotal.abs().toString(),
+                                        fontSize: 18,
+                                        fontColor: monthTotal >= 0
+                                            ? Colors.green
+                                            : Colors.black,
                                       ),
                                     ],
                                   ),
-                                )
-                              : index !=
-                                    (filter
-                                        ? filteredtransactions.length
-                                        : transactions.length)
-                              ? (filter
-                                        ? int.parse(
-                                                filteredtransactions[index]
-                                                    .transactionDate
-                                                    .split('-')[1],
-                                              ) !=
-                                              int.parse(
-                                                filteredtransactions[index - 1]
-                                                    .transactionDate
-                                                    .split('-')[1],
-                                              )
-                                        : int.parse(
-                                                transactions[index]
-                                                    .transactionDate
-                                                    .split('-')[1],
-                                              ) !=
-                                              int.parse(
-                                                transactions[index - 1]
-                                                    .transactionDate
-                                                    .split('-')[1],
-                                              ))
-                                    ? Container(
-                                        padding: const EdgeInsets.only(
-                                          top: 10,
-                                          left: 10,
-                                        ),
-                                        height: 70,
-                                        width: double.maxFinite,
-                                        color: isDark
-                                            ? const Color.fromARGB(
-                                                255,
-                                                36,
-                                                36,
-                                                36,
-                                              )
-                                            : const Color.fromARGB(
-                                                255,
-                                                235,
-                                                235,
-                                                235,
-                                              ),
-                                        child: Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            TextWidget(
-                                              getMonthName(
-                                                int.parse(
-                                                  filter
-                                                      ? filteredtransactions[index]
-                                                            .transactionDate
-                                                            .split('-')[1]
-                                                      : transactions[index]
-                                                            .transactionDate
-                                                            .split('-')[1],
-                                                ),
-                                              ),
-                                              fontSize: 24,
-                                              // fontFamily: "Roboto",
-                                              fontWeight: FontWeight.w700,
-                                              fontColor: getForegroundColor(
-                                                context,
-                                              ),
-                                            ),
-                                            TextWidget(
-                                              "$totalAmount  ",
-                                              fontSize: 24,
-                                              fontWeight: FontWeight.w700,
-                                              fontColor: getForegroundColor(
-                                                context,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                    : VerticalSpace(0)
-                              : VerticalSpace(0),
-                          ListTile(
-                            onTap: () {},
-                            leading: ClipOval(
-                              child: Image.asset(
-                                asset,
-                                width: 50,
-                                height: 50,
-                                fit: BoxFit.cover,
+                                ],
                               ),
                             ),
-                            title: TextWidget(
-                              title,
-                              fontColor: getForegroundColor(context),
-                              fontWeight: FontWeight.w500,
-                            ),
-                            subtitle: TextWidget(
-                              subtitle,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              fontColor: isDark
-                                  ? const Color.fromARGB(255, 198, 196, 196)
-                                  : AppColors.black,
-                            ),
-                            trailing: TextWidget(
-                              filter
-                                  ? "${transactions[index].statusActionSymbol}${transactions[index].amount}${transactions[index].statusActionSymbol.startsWith('!') ? '\nFailed' : ''}"
-                                  : "${transactions[index].statusActionSymbol}${transactions[index].amount}${transactions[index].statusActionSymbol.startsWith('!') ? '\nFailed' : ''}",
-                              textAlign: TextAlign.right,
-                              fontColor:
-                                  (filter
-                                      ? filteredtransactions[index]
-                                            .statusActionSymbol
-                                            .startsWith('!')
-                                      : transactions[index].statusActionSymbol
-                                            .startsWith('!'))
-                                  ? AppColors.red
-                                  : (filter
-                                        ? filteredtransactions[index]
-                                              .statusActionSymbol
-                                              .startsWith('+')
-                                        : transactions[index].statusActionSymbol
-                                              .startsWith('+'))
-                                  ? AppColors.green
-                                  : getForegroundColor(context),
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                ),
+                            ...txns.map((txn) {
+                              return ListTile(
+                                leading: ClipOval(
+                                  child: Image.asset(
+                                    txn.receiverImage,
+                                    width: 50,
+                                    height: 50,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                title: TextWidget(
+                                  txn.receiverName,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                subtitle: TextWidget(
+                                  txn.transactionDate
+                                      .toString()
+                                      .split(".")
+                                      .first,
+                                  fontSize: 12,
+                                ),
+                                trailing: TextWidget(
+                                  "${txn.statusActionSymbol}${txn.amount}",
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16,
+                                  fontColor: txn.status == "Failed"
+                                      ? AppColors.red
+                                      : txn.status == "Added"
+                                      ? AppColors.green
+                                      : getForegroundColor(context),
+                                ),
+                              );
+                            }).toList(),
+                          ],
+                        );
+                      }).toList(),
+                    ],
+                  );
+                }).toList();
+              })(),
+            ),
+          ),
         ],
       ),
     );

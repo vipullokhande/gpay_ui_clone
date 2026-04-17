@@ -451,31 +451,31 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                 decoration: InputDecoration(
                   hintText: 'Search transactions',
                   hintStyle: TextStyle(color: getForegroundColor(context)),
-                  prefixIcon: IconButton(
-                    onPressed: () {
-                      if (isSearch) {
-                        if (FocusScope.of(context).hasFocus) {
-                          setState(() {
-                            isSearch = false;
-                          });
-                          FocusScope.of(context).unfocus();
-                        }
-                        searchResAssets.clear();
-                        searchResSubtitles.clear();
-                        searchResAmounts.clear();
-                        searchResSubtitles.clear();
-                        setState(() {
-                          isSearch = false;
-                        });
-                      } else {
-                        NavUtil.pop(context);
-                      }
-                    },
-                    icon: Icon(
-                      Icons.arrow_back_ios_new_rounded,
-                      color: getForegroundColor(context),
-                    ),
-                  ),
+                  // prefixIcon: IconButton(
+                  //   onPressed: () {
+                  //     if (isSearch) {
+                  //       if (FocusScope.of(context).hasFocus) {
+                  //         setState(() {
+                  //           isSearch = false;
+                  //         });
+                  //         FocusScope.of(context).unfocus();
+                  //       }
+                  //       searchResAssets.clear();
+                  //       searchResSubtitles.clear();
+                  //       searchResAmounts.clear();
+                  //       searchResSubtitles.clear();
+                  //       setState(() {
+                  //         isSearch = false;
+                  //       });
+                  //     } else {
+                  //       NavUtil.pop(context);
+                  //     }
+                  //   },
+                  //   icon: Icon(
+                  //     Icons.arrow_back_ios_new_rounded,
+                  //     color: getForegroundColor(context),
+                  //   ),
+                  // ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                     borderSide: BorderSide(

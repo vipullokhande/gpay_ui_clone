@@ -56,12 +56,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ? const Color.fromARGB(210, 30, 30, 30)
                 : Colors.white,
             elevation: 0,
-            leading: IconButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              icon: const Icon(Icons.arrow_back_ios_new_rounded),
-            ),
+            // leading: IconButton(
+            //   onPressed: () {
+            //     Navigator.of(context).pop();
+            //   },
+            //   icon: const Icon(Icons.arrow_back_ios_new_rounded),
+            // ),
             actions: [
               IconButton(
                 onPressed: () {},
